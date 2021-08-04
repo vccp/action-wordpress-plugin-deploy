@@ -1,5 +1,5 @@
-name: 'WordPress Plugin SVN Deploy'
-description: 'Deploy to the WordPress Plugin Repository'
+name: 'SVN Deploy'
+description: 'Deploy to an SVN repository'
 author: 'nK'
 runs:
   using: 'docker'
