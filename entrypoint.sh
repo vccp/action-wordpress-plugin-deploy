@@ -10,6 +10,15 @@ set -eo
 # IMPORTANT: while secrets are encrypted and not viewable in the GitHub UI,
 # they are by necessity provided as plaintext in the context of the Action,
 # so do not echo or use debug mode unless you want your secrets exposed!
+if [[ -z "$SVN_URL" ]]; then
+    echo "Set the SVN_URL param"
+    exit 1
+fi
+
+if [[ -z "$SVN_DIR" ]]; then
+    echo "Set the SVN_DIR param"
+    exit 1
+fi
 if [[ -z "$SVN_USERNAME" ]]; then
     echo "Set the SVN_USERNAME secret"
     exit 1
@@ -19,27 +28,16 @@ if [[ -z "$SVN_PASSWORD" ]]; then
     echo "Set the SVN_PASSWORD secret"
     exit 1
 fi
+if [[ -z "$ASSETS_DIR" ]]; then
+    echo "Set the ASSETS_DIR param"
+    exit 1
+fi
 
 # Allow some ENV variables to be customized
 if [[ -z "$SLUG" ]]; then
     SLUG=${GITHUB_REPOSITORY#*/}
 fi
 echo "ℹ︎ SLUG is $SLUG"
-
-# Does it even make sense for VERSION to be editable in a workflow definition?
-if [[ -z "$VERSION" ]]; then
-    VERSION="${GITHUB_REF#refs/tags/}"
-    VERSION="${VERSION#v}"
-fi
-if [[ -z "$VERSION" ]]; then
-    echo "Wrong VERSION"
-    exit 1
-fi
-echo "ℹ︎ VERSION is $VERSION"
-
-if [[ -z "$ASSETS_DIR" ]]; then
-    ASSETS_DIR=".wordpress-org"
-fi
 echo "ℹ︎ ASSETS_DIR is $ASSETS_DIR"
 
 # By default we use root directory to upload on SVN
@@ -49,9 +47,6 @@ if [[ -z "$SOURCE_DIR" ]]; then
 else
     echo "ℹ︎ Using custom directory to upload from - $SOURCE_DIR"
 fi
-
-SVN_URL="https://plugins.svn.wordpress.org/${SLUG}/"
-SVN_DIR="/github/svn-${SLUG}"
 
 # Checkout just trunk and assets for efficiency
 # Tagging will be handled on the SVN level
