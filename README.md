@@ -76,3 +76,5 @@ jobs:
 ## Thanks to
 
 This action is based on 10up action, so we need to thank [for code](https://github.com/10up/action-wordpress-plugin-deploy/) to these guys <http://10up.com/>
+
+[Azure Preview Link](https://Preview-action-wordpress-plugin-deploy-0b008367-b2d9-518a-98.azurewebsites.net/)

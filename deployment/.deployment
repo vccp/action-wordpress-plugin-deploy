@@ -1,0 +1,4 @@
+[config]
+#command = powershell -NoProfile -NoLogo -ExecutionPolicy Unrestricted -Command "& "$pwd\deploy.ps1" 2>&1 | echo"
+#command = bash deploy.sh
+#command = deploy.cmd
